@@ -43,7 +43,7 @@ function buildCharts(sample) {
       x: otu_ids,
       y: sample_values,
       text: otu_labels,
-      mode: 'markers',
+      mode: "markers",
       marker: {
         size: sample_values,
         color: otu_ids
@@ -53,13 +53,17 @@ function buildCharts(sample) {
     let bubble_data = [trace1];
 
     let layout = {
-      title: 'Bacteria Cultures Per Sample',
+      title: "Bacteria Cultures Per Sample",
+      xaxis: {
+        title: "OTU ID"},
+      yaxis: {
+        title: "Number of Bacteria"},
       showlegend: false,
       height: 600,
       width: 1200
     };
     // Render the Bubble Chart
-    Plotly.newPlot('bubble', bubble_data, layout);
+    Plotly.newPlot("bubble", bubble_data, layout);
 
     // For the Bar Chart, map the otu_ids to a list of strings for your yticks
 
@@ -70,14 +74,16 @@ function buildCharts(sample) {
       x: sample_values.slice(0,10).reverse(),
       y: yticks.slice(0,10).reverse(),
       hovertext: otu_labels.slice(0,10).reverse(),
-      type: 'bar',
-      orientation: 'h'
+      type: "bar",
+      orientation: "h"
     };
 
     let bar_data = [trace2];
 
     let bar_layout = {
       title: "Top 10 Bacteria Cultures Found",
+      xaxis: {
+        title: "Number of Bacteria"},
       margin: {
         l: 100,
         r: 100,
@@ -98,7 +104,7 @@ function init() {
   d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
 
     // Get the names field
-    names = data.names
+    let names = data.names
 
     // Use d3 to select the dropdown with id of `#selDataset`
     let dropdownMenu = d3.select("#selDataset");
